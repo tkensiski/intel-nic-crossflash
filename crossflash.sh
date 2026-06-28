@@ -143,10 +143,10 @@ act_flash() {
     warn "A wrong flash size could HARD-brick the card (recovery needs an SPI flasher)."
     confirm "Proceed with crossflash of $mac?" || die "aborted by user"
 
-    log "step 1/3: replace OEM option-ROM"
+    log "step 1/4: replace OEM option-ROM"
     act_replace_orom "$mac"
 
-    log "step 2/3: inject etrack $et into cfg REPLACES"
+    log "step 2/4: inject etrack $et into cfg REPLACES"
     [ -f "$cfg.orig" ] || cp "$cfg" "$cfg.orig"
     append_etrack_to_cfg "$cfg" "$NVM_IMAGE" "$et" > "$cfg.new" && mv "$cfg.new" "$cfg"
     grep -q "$et" "$cfg" || die "etrack injection failed"
