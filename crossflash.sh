@@ -26,16 +26,18 @@ $SELF — safely crossflash OEM Intel NICs to generic Intel firmware.
 
 Usage: $SELF [-y] <action> [args]
 
-Read-only / safe:
+No root (read-only):
   inventory                  List Intel NICs: iface, MAC, PCI id, subsystem, etrack
-  setup                      Ensure iomem=relaxed (bootutil driverless prereq)
-  backup   <MAC> <profile>   Full NVM backup to WORK_DIR, size-checked vs profile
-  verify   <MAC> <profile>   Post-flash sanity check
+  verify   <MAC> <profile>   Post-flash sanity check (ethtool -i)
 
-Writes firmware (each gated by confirmation):
+Requires root:
+  setup                      Ensure iomem=relaxed for bootutil driverless (edits grub)
+  backup   <MAC> <profile>   Full NVM backup to WORK_DIR, size-checked vs profile
+
+Requires root, writes firmware (each gated by confirmation):
   replace-orom <MAC>            bootutil -up=combo: swap OEM option-ROM for Intel's
-  flash        <MAC> <profile>  Full crossflash (preflight, OROM, cfg edit, nvmupdate)
-  disable-orom <MAC>            bootutil -FD: disable option-ROM (stops UEFI POST hang)
+  flash        <MAC> <profile>  Full crossflash (preflight, OROM, cfg edit, nvmupdate, -rd)
+  disable-orom <MAC>            bootutil -FD: disable option-ROM on every port (stops POST hang)
   restore      <MAC> <file>     bootutil -RESTOREIMAGE from a backup (recovery)
 
 Options:  -y  assume yes (still runs preflight gates)   -h  help
