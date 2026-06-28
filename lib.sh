@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 tkensiski
 #
-# Shared helpers for intel-nic-crossflash. Sourced, not executed.
+# Shared helpers for intel-nic-tool. Sourced, not executed.
 
 c_red=$'\033[31m'; c_grn=$'\033[32m'; c_ylw=$'\033[33m'; c_rst=$'\033[0m'
 log()  { printf '%s[*]%s %s\n' "$c_grn" "$c_rst" "$*"; }

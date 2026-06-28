@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 tkensiski
 #
-# intel-nic-crossflash — safely crossflash OEM (Dell/Lenovo/HP) Intel NICs to
+# intel-nic-tool — safely crossflash OEM (Dell/Lenovo/HP) Intel NICs to
 # generic Intel firmware, with backup gates and a flash-size brick guard.
 #
 # v1 targets the 700-series (X710-DA2); other cards are added as profiles/.
