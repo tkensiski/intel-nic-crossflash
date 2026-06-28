@@ -26,7 +26,7 @@ Usage: $SELF [-y] <action> [args]
 
 Read-only / safe:
   inventory                  List Intel NICs: iface, MAC, PCI id, subsystem, etrack
-  setup                      Build + load the iqvlinux QV driver (bootutil needs it)
+  setup                      Ensure iomem=relaxed (bootutil driverless prereq)
   backup   <MAC> <profile>   Full NVM backup to WORK_DIR, size-checked vs profile
   verify   <MAC> <profile>   Post-flash sanity check
 
@@ -148,7 +148,11 @@ act_flash() {
 
     log "step 3/3: nvmupdate (minutes; DO NOT interrupt or power off)"
     mkdir -p "$WORK_DIR"
-    ( cd "$NVM_DIR" && ./nvmupdate64e -u -m "$mac" -rd -b -s \
+    # Core crossflash: update this one card's NVM from the cfg-matched image,
+    # keeping a rollback backup. NOTE: -rd (reset Dell settings to default) is
+    # intentionally NOT combined here; run it separately afterward only if the
+    # card still shows OEM artifacts.
+    ( cd "$NVM_DIR" && ./nvmupdate64e -u -m "$mac" -b -s \
         -l "$WORK_DIR/nvmupdate_$mac.log" -o "$WORK_DIR/nvmupdate_$mac.xml" )
     hr
     log "nvmupdate finished — see $WORK_DIR/nvmupdate_$mac.xml"
