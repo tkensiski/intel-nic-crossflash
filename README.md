@@ -45,14 +45,14 @@ export WORK_DIR=$HOME/crossflash-work        # backups + logs
 
 sudo -E ./crossflash.sh inventory                       # identify cards + etrack
 sudo -E ./crossflash.sh setup                           # ensure iomem=relaxed (driverless)
-sudo -E ./crossflash.sh backup  F8F21E01DDE0 x710-da2   # size-verified backup
-sudo -E ./crossflash.sh flash   F8F21E01DDE0 x710-da2   # crossflash + -rd reset (gated)
+sudo -E ./crossflash.sh backup  001122334455 x710-da2   # size-verified backup
+sudo -E ./crossflash.sh flash   001122334455 x710-da2   # crossflash + -rd reset (gated)
 #   --> reboot (cold A/C cycle only if the version doesn't change) <--
-sudo -E ./crossflash.sh verify       F8F21E01DDE0 x710-da2
-sudo -E ./crossflash.sh disable-orom F8F21E01DDE0       # -FD on every port -> stop POST hang
+sudo -E ./crossflash.sh verify       001122334455 x710-da2
+sudo -E ./crossflash.sh disable-orom 001122334455       # -FD on every port -> stop POST hang
 
 # recovery, if needed
-sudo -E ./crossflash.sh restore F8F21E01DDE0 $WORK_DIR/F8F21E01DDE0_<ts>.nvm
+sudo -E ./crossflash.sh restore 001122334455 $WORK_DIR/001122334455_<ts>.nvm
 ```
 
 MAC may be given with or without separators.
@@ -81,3 +81,9 @@ safety steps enforced. Full credit to:
   — for the OROM-replace-first sequence and recovery paths.
 - **Intel** — the NVM Update Tool, BootUtil, and the
   [NVM Update Tool usage guide](https://cdrdv2-public.intel.com/332161/).
+
+## License
+
+GPLv3 — see [LICENSE](LICENSE). This covers the scripts in this repo only; the
+Intel NVM Update Tool and BootUtil it drives are Intel's own software and are
+not redistributed here.

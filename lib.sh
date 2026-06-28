@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 tkensiski
+#
 # Shared helpers for intel-nic-crossflash. Sourced, not executed.
 
 c_red=$'\033[31m'; c_grn=$'\033[32m'; c_ylw=$'\033[33m'; c_rst=$'\033[0m'
@@ -21,7 +24,7 @@ confirm() {
 
 file_size() { stat -c %s "$1" 2>/dev/null || stat -f %z "$1" 2>/dev/null; }
 
-# Normalize a MAC to plain uppercase, no separators (F8F21E01DDE0).
+# Normalize a MAC to plain uppercase, no separators (001122334455).
 mac_norm() { printf '%s' "$1" | tr -d ':-' | tr 'a-f' 'A-F'; }
 
 # etrack id (uppercase, no 0x) from an interface's ethtool firmware-version.

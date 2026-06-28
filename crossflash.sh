@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 tkensiski
+#
 # intel-nic-crossflash — safely crossflash OEM (Dell/Lenovo/HP) Intel NICs to
 # generic Intel firmware, with backup gates and a flash-size brick guard.
 #
