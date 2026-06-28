@@ -67,3 +67,17 @@ card's true SPI flash size — confirm it from a full NVM dump before trusting i
 
 See [docs/PROCEDURE.md](docs/PROCEDURE.md) for the full procedure, the sources it
 came from, and the recovery story.
+
+## Credits
+
+This tool automates a procedure the community worked out and documented — it
+didn't discover anything new, it just wraps their work in a script with the
+safety steps enforced. Full credit to:
+
+- **mietzen** — [*How to crossflash intel X710 OEM cards*](https://gist.github.com/mietzen/736583d37a1d370273c0775aaaa57aa5),
+  the canonical guide this is based on.
+- The **Level1Techs** community thread
+  [*Crossflashing Intel official firmware on Dell / Lenovo X710-DA2 (Solved)*](https://forum.level1techs.com/t/crossflashing-intel-official-firmware-on-dell-lenovo-pcie-x710-da2-nics-solved/196357)
+  — for the OROM-replace-first sequence and recovery paths.
+- **Intel** — the NVM Update Tool, BootUtil, and the
+  [NVM Update Tool usage guide](https://cdrdv2-public.intel.com/332161/).
