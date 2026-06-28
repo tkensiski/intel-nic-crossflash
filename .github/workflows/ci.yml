@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # installs the shellcheck version pinned in .mise.toml, so CI and local
+      # resolve the same binary
+      - uses: jdx/mise-action@v2
+
+      - name: syntax check
+        run: |
+          bash -n crossflash.sh
+          bash -n lib.sh
+
+      - name: shellcheck
+        run: shellcheck -S warning crossflash.sh lib.sh
