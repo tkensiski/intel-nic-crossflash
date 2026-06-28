@@ -27,7 +27,9 @@ code (see [Adding a card](#adding-a-card)).
 
 ## Requirements
 
-- Linux, root, `ethtool`, `lspci`
+- Linux, `ethtool`, `lspci` — **root only for the firmware-writing actions**
+  (`setup`, `backup`, `flash`, `replace-orom`, `disable-orom`, `restore`);
+  `inventory` and `verify` are read-only and run as a normal user
 - Intel **NVM Update Package** for the card family (provides `nvmupdate64e`,
   `nvmupdate.cfg`, and the target `*.bin` images)
 - Intel **Preboot/BootUtil** package (provides `bootutil64e`)
@@ -43,12 +45,12 @@ export NVM_DIR=/path/to/700Series/Linux_x64
 export BOOTUTIL_DIR=/path/to/Preboot/APPS/BootUtil/Linux_x64
 export WORK_DIR=$HOME/crossflash-work        # backups + logs
 
-sudo -E ./crossflash.sh inventory                       # identify cards + etrack
+./crossflash.sh inventory                               # identify cards + etrack (no root)
 sudo -E ./crossflash.sh setup                           # ensure iomem=relaxed (driverless)
 sudo -E ./crossflash.sh backup  001122334455 x710-da2   # size-verified backup
 sudo -E ./crossflash.sh flash   001122334455 x710-da2   # crossflash + -rd reset (gated)
 #   --> reboot (cold A/C cycle only if the version doesn't change) <--
-sudo -E ./crossflash.sh verify       001122334455 x710-da2
+./crossflash.sh verify       001122334455 x710-da2      # post-flash check (no root)
 sudo -E ./crossflash.sh disable-orom 001122334455       # -FD on every port -> stop POST hang
 
 # recovery, if needed
