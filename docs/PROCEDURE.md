@@ -69,12 +69,20 @@ Do **one card at a time**, proving each end-to-end before the next.
 
 ## Recovery
 
-- **Soft fail** (bad flag, interrupted): re-run nvmupdate, or
-  `bootutil -RESTOREIMAGE -FILE=<backup>`, then cold-cycle. The X710's Firmware
-  Recovery Mode catches most soft failures.
-- **Hard brick** (wrong flash-size image): the card won't enumerate; recovery
-  needs a **hardware SPI flasher** (CH341A + SOIC-8 clip) to write the backup
-  back to the flash chip. This is why step 2's size gate exists — getting it
-  right is what keeps you out of this case.
+Tiered — and the only *unrecoverable* tier is the one the step-2 size gate
+prevents:
+
+- **Wrong card options / "kinda bricked"** — `nvmupdate64e -rd` resets the card
+  to factory defaults; on its own this has rescued cards after a bad flash. (It's
+  why the flash step always passes `-rd`.)
+- **Soft fail** (interrupted, recovery mode) — the X710 enters Firmware Recovery
+  Mode; re-flash, or restore the saved backup via
+  `bootutil -RESTOREIMAGE -FILE=<backup>` (or re-run nvmupdate in EFI), then
+  cold-cycle.
+- **Hard brick — flash-size mismatch only** — a 4M image on an 8M card (or
+  vice-versa) corrupts the chip so it won't enumerate, and **no software path
+  recovers it**: you need a hardware SPI flasher (CH341A + SOIC-8 clip) to write
+  the backup back. This is the single reported unrecoverable case. Confirming
+  flash size up front — and the tool's size gate — is what keeps you out of it.
 
 Keep the pre-flash NVM backup in at least two places.
